@@ -1,50 +1,87 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+Version change: sem versão anterior -> 1.0.0
+Princípios modificados: os cinco espaços reservados do scaffold foram definidos:
+  PRINCIPLE_1_NAME -> I. Segurança em primeiro lugar
+  PRINCIPLE_2_NAME -> II. Arquitetura Laravel simples e modular
+  PRINCIPLE_3_NAME -> III. Qualidade verificável
+  PRINCIPLE_4_NAME -> IV. Contratos de API consistentes
+  PRINCIPLE_5_NAME -> V. Especificação e documentação em pt-BR
+Seções adicionadas: Restrições técnicas e operacionais; Fluxo de desenvolvimento.
+Seções removidas: nenhuma.
+Pendências: confirmar a data de ratificação original; remover este relatório temporário
+antes de criar um commit.
+-->
+# Constituição da Auth API
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Segurança em primeiro lugar
+Senhas MUST ser armazenadas somente por meio de hash seguro, nunca em texto puro.
+Senhas, hashes, tokens e segredos MUST NOT aparecer em respostas, logs ou mensagens
+de erro. Entradas MUST ser validadas e normalizadas conforme o contrato do endpoint.
+Autenticação MUST usar mecanismos consolidados do Laravel; rotas privadas MUST exigir
+autenticação e autorização adequadas. Essas regras reduzem exposição de dados e acesso
+indevido.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Arquitetura Laravel simples e modular
+A aplicação MUST separar responsabilidades de HTTP, validação, regras de negócio,
+persistência e serialização das respostas de forma proporcional à complexidade real.
+Controllers MUST NOT concentrar responsabilidades excessivas nem duplicar lógica.
+Implementações MUST seguir convenções idiomáticas do Laravel e aplicar princípios
+SOLID quando trouxerem benefício concreto, evitando abstrações sem necessidade.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Qualidade verificável
+Cada funcionalidade MUST incluir testes automatizados relevantes. A cobertura MUST
+considerar, conforme aplicável, sucesso, validação, autenticação, autorização e falhas.
+Uma alteração MUST NOT ser considerada concluída antes da execução dos testes
+pertinentes. Mudanças MUST preservar o comportamento existente, exceto quando a
+especificação aprovada definir explicitamente uma mudança de contrato ou comportamento.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Contratos de API consistentes
+Endpoints MUST manter contratos HTTP consistentes, códigos de status adequados e
+respostas JSON previsíveis. Os endpoints e seus requisitos MUST ser documentados.
+A API MUST ser versionada quando mudanças incompatíveis ou a evolução do produto
+tornarem isso necessário, sem introduzir versionamento prematuro.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Especificação e documentação em pt-BR
+Toda funcionalidade nova MUST começar por uma especificação revisável. O plano técnico
+MUST respeitar a especificação e esta constituição; as tarefas MUST ser rastreáveis aos
+requisitos. Uma revisão de consistência entre especificação, plano, tarefas, código e
+testes MUST ocorrer antes da implementação e da conclusão. Implementações MUST permanecer
+dentro do escopo aprovado. Toda documentação produzida pelo projeto MUST ser escrita
+em português brasileiro natural e tecnicamente consistente. Nomes de comandos,
+bibliotecas, classes, métodos, variáveis, endpoints, propriedades de protocolos e
+identificadores exigidos por ferramentas MUST preservar a grafia original; estruturas
+e palavras-chave literais do Spec Kit MUST permanecer inalteradas.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Restrições técnicas e operacionais
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+PostgreSQL MUST ser o banco de dados relacional do projeto. Alterações de esquema MUST
+ser feitas por migrations versionadas e MUST preservar a integridade e a consistência
+dos dados. Docker MUST ser usado para executar a aplicação e o PostgreSQL. Configuração
+sensível e segredos MUST permanecer fora do código versionado. Dados e volumes de
+ambientes MUST NOT ser alterados ou apagados sem autorização explícita.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Fluxo de desenvolvimento
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+O projeto MUST estar preparado para validação automatizada em CI. Revisões MUST
+verificar os requisitos de segurança, contratos, testes e consistência dos artefatos
+de especificação. Migrations e testes MUST ser executados nos fluxos de validação
+apropriados, sem substituir verificações por suposições. Desvios desta constituição
+MUST ser justificados e aprovados por meio de alteração formal da própria constituição.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Esta constituição prevalece sobre convenções locais conflitantes. Alterações MUST ser
+propostas e revisadas como mudanças explícitas deste documento, com justificativa e
+avaliação de impacto sobre especificações, planos, tarefas, código e testes existentes.
+Mudanças incompatíveis nos princípios ou remoções exigem incremento MAJOR da versão;
+novos princípios, seções ou expansão material exigem incremento MINOR; esclarecimentos
+sem mudança semântica exigem incremento PATCH. Toda revisão MUST atualizar a versão,
+a data da última alteração e o registro de impacto. A data de ratificação registra a
+adoção original e MUST permanecer inalterada em revisões posteriores. Revisões de
+código e de artefatos MUST avaliar conformidade com esta constituição e registrar
+desvios aprovados ou pendências antes de considerar o trabalho concluído.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): confirmar data de adoção original | **Last Amended**: 2026-10-21
