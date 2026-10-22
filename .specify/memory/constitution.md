@@ -1,13 +1,9 @@
 <!--
 Sync Impact Report
-Version change: sem versão anterior -> 1.0.0
-Princípios modificados: os cinco espaços reservados do scaffold foram definidos:
-  PRINCIPLE_1_NAME -> I. Segurança em primeiro lugar
-  PRINCIPLE_2_NAME -> II. Arquitetura Laravel simples e modular
-  PRINCIPLE_3_NAME -> III. Qualidade verificável
-  PRINCIPLE_4_NAME -> IV. Contratos de API consistentes
-  PRINCIPLE_5_NAME -> V. Especificação e documentação em pt-BR
-Seções adicionadas: Restrições técnicas e operacionais; Fluxo de desenvolvimento.
+Version change: 1.0.0 -> 1.1.0
+Princípios modificados: I. Segurança em primeiro lugar (exceção explícita para entrega
+  única de token de acesso recém-emitido ao cliente).
+Seções adicionadas: nenhuma.
 Seções removidas: nenhuma.
 Pendências: confirmar a data de ratificação original; remover este relatório temporário
 antes de criar um commit.
@@ -18,11 +14,15 @@ antes de criar um commit.
 
 ### I. Segurança em primeiro lugar
 Senhas MUST ser armazenadas somente por meio de hash seguro, nunca em texto puro.
-Senhas, hashes, tokens e segredos MUST NOT aparecer em respostas, logs ou mensagens
-de erro. Entradas MUST ser validadas e normalizadas conforme o contrato do endpoint.
-Autenticação MUST usar mecanismos consolidados do Laravel; rotas privadas MUST exigir
-autenticação e autorização adequadas. Essas regras reduzem exposição de dados e acesso
-indevido.
+Senhas, hashes de senha e segredos MUST NOT aparecer em respostas, logs ou mensagens de
+erro. Tokens de acesso MUST NOT aparecer em logs, mensagens de erro ou respostas que
+não os emitam como resultado de autenticação bem-sucedida. A única exceção é o token
+Bearer recém-emitido, que MUST ser devolvido uma única vez ao cliente nas respostas
+bem-sucedidas de cadastro ou login; o token MUST NOT ser retornado por `/api/me`,
+logout ou qualquer resposta de falha. Entradas MUST ser validadas e normalizadas
+conforme o contrato do endpoint. Autenticação MUST usar mecanismos consolidados do
+Laravel; rotas privadas MUST exigir autenticação e autorização adequadas. Essas regras
+reduzem exposição de dados e acesso indevido.
 
 ### II. Arquitetura Laravel simples e modular
 A aplicação MUST separar responsabilidades de HTTP, validação, regras de negócio,
@@ -84,4 +84,4 @@ adoção original e MUST permanecer inalterada em revisões posteriores. Revisõ
 código e de artefatos MUST avaliar conformidade com esta constituição e registrar
 desvios aprovados ou pendências antes de considerar o trabalho concluído.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): confirmar data de adoção original | **Last Amended**: 2026-10-21
+**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): confirmar data de adoção original | **Last Amended**: 2026-10-22
